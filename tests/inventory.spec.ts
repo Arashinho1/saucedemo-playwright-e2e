@@ -3,7 +3,7 @@ import { LoginPage } from '../src/pages/LoginPage';
 import { InventoryPage } from '../src/pages/InventoryPage';
 import { TEST_DATA } from '../src/data/testData';
 
-test.describe('Inventory & Catalog Tests', () => {
+test.describe('Catálogo e Produtos', () => {
   let inventoryPage: InventoryPage;
 
   test.beforeEach(async ({ page }) => {
@@ -18,21 +18,21 @@ test.describe('Inventory & Catalog Tests', () => {
     await expect(inventoryPage.title).toBeVisible();
   });
 
-  test('should sort products alphabetically Z to A', async () => {
+  test('Deve ordenar produtos alfabeticamente de Z para A', async () => {
     await inventoryPage.sortBy('za');
     const names = await inventoryPage.getAllProductNames();
     const sorted = [...names].sort().reverse();
     expect(names).toEqual(sorted);
   });
 
-  test('should sort products by price Low to High', async () => {
+  test('Deve ordenar produtos por preço do menor para o maior', async () => {
     await inventoryPage.sortBy('lohi');
     const prices = await inventoryPage.getAllProductPrices();
     const sorted = [...prices].sort((a, b) => a - b);
     expect(prices).toEqual(sorted);
   });
 
-  test('should update cart badge when adding and removing an item', async () => {
+  test('Deve atualizar o contador do carrinho ao adicionar e remover itens', async () => {
     expect(await inventoryPage.getCartCount()).toBe(0);
 
     await inventoryPage.addProductToCart(TEST_DATA.products.backpack);
